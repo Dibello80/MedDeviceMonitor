@@ -1,3 +1,11 @@
+## Demo
+
+Real-time Android medical monitoring app connected to an external device server.
+
+- Live data streaming
+- Alert detection
+- Smooth chart visualization
+
 # MedDeviceMonitor
 
 Android medical device monitoring app built with Kotlin and Jetpack Compose.
