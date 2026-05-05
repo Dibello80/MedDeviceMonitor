@@ -43,13 +43,13 @@ Example data: HR:82,O2:97,TEMP:98.4
 ![Server](screenshots/MedDevMon_Screen_3_API.png)
 
 ### Android App Dashboard
-![Dashboard](screenshots/MedDevMon_Screen_1.png)
+![Dashboard](screenshots/MedDevMon_Screen_4.png)
 
 ### Normal Monitoring State
-![Normal](screenshots/MedDevMon_Screen_2.png)
+![Normal](screenshots/MedDevMon_Screen_1.png)
 
 ### Alert State (Abnormal Readings)
-![Alert](screenshots/MedDevMon_Screen_4.png)
+![Alert](screenshots/MedDevMon_Screen_2.png)
 
 ## Future Improvements
 
