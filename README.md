@@ -31,7 +31,17 @@ Example data: HR:82,O2:97,TEMP:98.4
 
 ## Screenshots
 
-(Add screenshots here)
+### Device Server (Simulated Sensor)
+![Server](screenshots/server_dashboard.png)
+
+### Android App Dashboard
+![Dashboard](screenshots/app_dashboard.png)
+
+### Normal Monitoring State
+![Normal](screenshots/app_normal.png)
+
+### Alert State (Abnormal Readings)
+![Alert](screenshots/app_alert.png)
 
 ## Future Improvements
 
