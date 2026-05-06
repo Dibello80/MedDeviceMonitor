@@ -136,7 +136,9 @@ This project simulates a real-world scenario where software must integrate with 
 
 ## Author
 
-Angelo R. Dibello
+Angelo R. Dibello  
+Android Developer | Computer Science (Cybersecurity)
 
+GitHub: https://github.com/Dibello80
 
 
