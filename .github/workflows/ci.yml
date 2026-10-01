@@ -47,26 +47,34 @@ jobs:
 
       - name: Deploy to EC2 with SSM
         run: |
+          PARAMETERS=$(jq -n \
+            --arg sha "$GITHUB_SHA" \
+            '{
+              commands: [
+                "set -e",
+                "cd /home/ssm-user/MedDeviceMonitor",
+                "sudo -u ssm-user git fetch origin",
+                "sudo -u ssm-user git reset --hard origin/master",
+                "DEPLOYED_SHA=$(sudo -u ssm-user git rev-parse HEAD)",
+                "echo Deployed commit: $DEPLOYED_SHA",
+                ("echo Expected commit: " + $sha),
+                ("test \"$DEPLOYED_SHA\" = \"" + $sha + "\""),
+                "cd simulator",
+                "source venv/bin/activate",
+                "pip install -r requirements.txt",
+                "sudo systemctl restart meddevicemonitor",
+                "sleep 5",
+                "sudo systemctl is-active --quiet meddevicemonitor",
+                "curl --fail http://127.0.0.1:5000/api/reading"
+              ]
+            }')
+
+          echo "Sending deployment command to EC2..."
+
           COMMAND_ID=$(aws ssm send-command \
             --instance-ids "i-0c77da5912a6b7f75" \
             --document-name "AWS-RunShellScript" \
-            --parameters "commands=[
-              \"set -e\",
-              \"cd /home/ssm-user/MedDeviceMonitor\",
-              \"sudo -u ssm-user git fetch origin\",
-              \"sudo -u ssm-user git reset --hard origin/master\",
-              \"DEPLOYED_SHA=\$(sudo -u ssm-user git rev-parse HEAD)\",
-              \"echo Deployed commit: \$DEPLOYED_SHA\",
-              \"echo Expected commit: $GITHUB_SHA\",
-              \"test \\"\$DEPLOYED_SHA\\" = \\"$GITHUB_SHA\\"\",
-              \"cd simulator\",
-              \"source venv/bin/activate\",
-              \"pip install -r requirements.txt\",
-              \"sudo systemctl restart meddevicemonitor\",
-              \"sleep 5\",
-              \"sudo systemctl is-active --quiet meddevicemonitor\",
-              \"curl --fail http://127.0.0.1:5000/api/reading\"
-            ]" \
+            --parameters "$PARAMETERS" \
             --query 'Command.CommandId' \
             --output text)
 
