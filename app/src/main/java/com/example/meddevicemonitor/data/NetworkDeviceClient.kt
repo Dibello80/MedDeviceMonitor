@@ -10,7 +10,7 @@ import java.net.URL
 
 class NetworkDeviceClient {
 
-    private val endpoint = "http://10.0.2.2:5000/api/reading"
+    private val endpoint = "https://med.dibellointeractive.com/api/reading"
 
     fun streamReadings(): Flow<DeviceReading> = flow {
         while (true) {
