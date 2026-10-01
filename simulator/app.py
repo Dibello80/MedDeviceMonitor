@@ -135,10 +135,12 @@ def api_reading():
 @app.route("/raw")
 def raw_reading():
     return f"HR:{latest_reading['heartRate']},O2:{latest_reading['oxygenLevel']},TEMP:{latest_reading['temperature']}"
+    
+# Start the simulated medical-device data generator.
+# This runs when the application is loaded by Gunicorn or started directly.
+thread = threading.Thread(target=update_reading_loop, daemon=True)
+thread.start()
 
 if __name__ == "__main__":
-    thread = threading.Thread(target=update_reading_loop, daemon=True)
-    thread.start()
-
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
